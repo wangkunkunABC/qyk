@@ -1,0 +1,374 @@
+<script type="text/html" id="customerDetailTpl">
+    <div class="customer-detail-pop layui-container">
+        <div class="row head">
+            {{#if(d.customer.imgAddress){}}
+				<a href="{{d.attachsPrefix+d.customer.imgAddress}}" download='filename'>
+                <img src="{{d.attachsPrefix+d.customer.imgAddress}}" class="img-wrap">
+				</a>
+				{{#}else{}}
+				<img src="images/customer-pic.png">
+				{{#}}}
+            <div class="info-wrap">
+                <div class="left-p">
+                    <div class="top clearfix">
+                        <span class="customer-name">{{d.customer.name}}</span>
+                        <span class="box"><i class="fa fa-birthday-cake"></i>{{layui.laytpl.toDateString(d.customer.birthday,'yyyy-MM-dd')}}</span>
+                        <span class="box">{{#if(d.customer.sex === 0){}}男{{#}else{}}女{{#}}}</span>
+                        <span class="box">{{d.customer.age}}岁</span>
+                        <span class="box">{{#if(d.customer.scType === 0){}}职工医保{{#}else{}}居民医保{{#}}}</span>
+                        <span class="box">{{d.customer.areaName}}</span>
+						{{#if(d.customer.isBlack == 1){}}
+						<i class="black-list"></i>
+						{{#}}}
+                    </div>
+                    <div class="bottom">
+                        <div class="item">
+                            <p class="item-t">患者编号</p>
+                            <p class="item-c">{{layui.laytpl.defaultIfBlank(d.customer.code)}}</p>
+                        </div>
+                        <div class="item">
+                            <p class="item-t">人员编号</p>
+                            <p class="item-c">{{d.customer.scCard}}</p>
+                        </div>
+                        <div class="item">
+                            <p class="item-t">身份证号</p>
+                            <p class="item-c">{{d.customer.card}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-p">
+                    <p class="money">&yen; {{layui.laytpl.formatMoney(d.customer.totalAmount)}}</p>
+                    <p>累计已报销金额</p>
+                </div>
+            </div>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title">
+            <legend>特保资格</legend>
+        </fieldset>
+        <div class="layui-collapse {{#if(d.treatInfoList.length === 0){}}no-treatment{{#}}}" lay-accordion>
+			{{# layui.each(d.treatInfoList,function(index,item){ }}
+			<div class="layui-colla-item">
+				<h2 class="layui-colla-title">{{item.treatmentName}} <div class="title-r">
+                	<span>本资格已报销金额</span>
+                	<span class="num">&yen; {{layui.laytpl.formatMoney(item.amount)}}</span>
+                </div></h2>
+                <div class="layui-colla-content {{#if(index === 0){}}layui-show{{#}}}">
+                    <div class="layui-fluid">
+                        <div class="layui-row layui-col-space30">
+                        	{{# layui.each(item.treatmentList,function(index,item){ }}
+                            <div class="layui-col-md4">
+                                <div class="year-info">
+                                    <div class="info-p">
+                                        <span class="year-index">第<i>{{=index+1}}</i>年</span>
+                                        <span class="time-span">{{layui.laytpl.toDateString(item.createTime,'yyyy-MM-dd')}} - {{layui.laytpl.toDateString(item.endTime,'yyyy-MM-dd')}}</span>
+                                        <div class="money-info">
+                                            <p class="money">&yen; {{layui.laytpl.formatMoney(item.yearAmountUse)}}</p>
+                                            <p>已报销金额</p>
+                                        </div>
+                                        <!-- 资格有效：status-ok;否则，status-fail -->
+										{{#if(item.status === 0 && item.isExpire === 0){}}
+                        				<p class="layui-badge cert-status status-ok">资格有效</p>
+                                        {{#}else if(item.status === 0 && item.isExpire === 1){}}
+                        				<p class="layui-badge cert-status status-fail">资格过期</p>
+                        				{{#}else if(item.status === 1){}}
+                        				<p class="layui-badge cert-status status-fail">资格结束</p>
+                        				{{#}else if(item.status === 2){}}
+                        				<p class="layui-badge cert-status status-fail">资格取消</p>
+                        				{{#}else if(item.status === 3 && item.isExpire === 0){}}
+                        				<p class="layui-badge cert-status status-fail">资格暂停</p>
+                                        {{#}else if(item.status === 3 && item.isExpire === 1){}}
+                        				<p class="layui-badge cert-status status-fail">已过期</p>
+                        				{{#}else if(item.status === 4){}}
+                        				<p class="layui-badge cert-status status-no">资格无效</p>
+                        				{{#}}}
+                                        
+                                    </div>
+                                    <div class="link-p">
+                                        <a href="javascript:;" class="customer-view-treatment" data-treatment-id="{{item.id}}">特保资格详情<i class="fa fa-angle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            {{# }); }}
+                            {{# for(var i = item.treatmentList.length + 1;i <= 3;i++){ }}
+								<div class="layui-col-md4">
+	                                <div class="year-info no-data">
+	                                    <div class="info-p">
+	                                        <span class="year-index">第<i>{{=i}}</i>年</span>
+	                                        <span class="time-span">暂无</span>
+	                                    </div>
+	                                    <div class="link-p">
+	                                        <a href="javascript:;">特保资格详情<i class="fa fa-angle-right"></i></a>
+	                                    </div>
+	                                </div>
+	                            </div>
+                            {{# } }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+			{{# }); }}
+        </div>
+        <div class="layui-tab layui-tab-brief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">个人详情</li>
+                <li>领药人</li>
+                <li>健康档案</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item personal-info layui-show">
+                    <div class="item">
+                        <div class="item-t">
+                            <i class="block"></i>
+                            <span>联系方式</span>
+                        </div>
+                        <div class="item-c">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">手机号码：</span>
+                                    <span class="part-c">{{layui.laytpl.defaultIfBlank(d.customer.telephone)}}</span>
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">固定电话：</span>
+                                    {{# if(d.customer.fixphone){}}
+                                    <span class="part-c">{{d.customer.fixphone}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">家庭住址：</span>
+                                    {{# if(d.customer.address){}}
+                                    <span class="part-c">{{d.customer.address}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">工作单位：</span>
+                                    {{# if(d.customer.workAddress){}}
+                                    <span class="part-c">{{d.customer.workAddress}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-t">
+                            <i class="block"></i>
+                            <span>体征情况</span>
+                        </div>
+                        <div class="item-c">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">身高(cm)：</span>
+                                     {{# if(d.customer.tall){}}
+                                    <span class="part-c">{{d.customer.tall}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">体重(kg)：</span>
+                                    {{# if(d.customer.weight){}}
+                                    <span class="part-c">{{d.customer.weight}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">BSA(m^2)：</span>
+                                     {{# if(d.customer.bSA){}}
+                                    <span class="part-c">{{d.customer.bSA}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-t">
+                            <i class="block"></i>
+                            <span>创建信息</span>
+                        </div>
+                        <div class="item-c">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">创建人：</span>
+                                    <span class="part-c">{{layui.laytpl.defaultIfBlank(d.customer.createName)}}</span>
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">创建时间：</span>
+                                    <span class="part-c">{{ layui.laytpl.toDateString(d.customer.createTime) }}</span>
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">创建药房：</span>
+                                    <span class="part-c">{{layui.laytpl.defaultIfBlank(d.customer.shopName)}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-tab-item mypic">
+                    <table  lay-filter="customer-relation-table">
+                        <thead>
+                            <tr>
+                                <th lay-data="{field:'name'}">领药人</th>
+                                <th lay-data="{field:'card'}">身份证号</th>
+                                <th lay-data="{field:'telephone'}">联系电话</th>
+                                <th lay-data="{field:'isDefault'}">是否默认</th>
+                                <th lay-data="{field:'imgAddress'}">头像</th>
+                            </tr>
+                        </thead>
+						<tbody>
+							{{#layui.each(d.cusRelation,function(index,item){}}
+							<tr>
+                                <td>{{item.name}}</td>
+                                <td>{{item.card}}</td>
+                                <td>{{item.telephone}}</td>
+                                <td>{{#if(item.isDefault === 0){}}默认{{#}else{}}非默认{{#}}}</td>
+                                <td>
+                            		<div class="view-pic1">
+                                		<span class="big" style="cursor:pointer;">
+                                            {{#if (item.imgAddress){}}
+												<img src="images/apply/big.png" layer-src="{{d.attachsPrefix + item.imgAddress}}" alt="{{item.name}}"/>
+                                            {{#}else{}}未上传{{#}}}
+										</span>
+                            		</div>
+                       			</td>
+                            </tr>
+							{{#})}}
+						</tbody>
+                    </table>
+                </div>
+                <div class="layui-tab-item archive-info">
+					<div class="item">
+                        <div class="item-t">
+                            <i class="block"></i>
+                            <span>确诊信息</span>
+                        </div>
+                        <div class="item-c">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">首诊日期：</span>
+                                     {{# if(d.cusHealth.diagnoseDate){}}
+                                    <span class="part-c">{{layui.laytpl.toDateString(d.cusHealth.diagnoseDate,'yyyy-MM-dd')}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">确诊医院：</span>
+                                     {{# if(d.cusHealth.diagnoseHospital){}}
+                                    <span class="part-c">{{d.cusHealth.diagnoseHospital}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">确诊科室：</span>
+                                     {{# if(d.cusHealth.diagnoseDepartment){}}
+                                    <span class="part-c">{{d.cusHealth.diagnoseDepartment}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">确诊医生：</span>
+                                      {{# if(d.cusHealth.diagnoseDepartment){}}
+                                    <span class="part-c">{{d.cusHealth.diagnoseDepartment}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                    <span class="part-c">{{layui.laytpl.defaultIfBlank(d.cusHealth.diagnoseDoctor)}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-t">
+                            <i class="block"></i>
+                            <span>既往史</span>
+                        </div>
+                        <div class="item-c">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">既往病史：</span>
+                                     {{# if(d.cusHealth.medicalHistory){}}
+                                    <span class="part-c">{{d.cusHealth.medicalHistory}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">吸烟状况：</span>
+                                     {{# if(d.cusHealth.smokeDescription){}}
+                                    <span class="part-c">{{d.cusHealth.smokeDescription}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">状况说明：</span>
+                                     {{# if(d.cusHealth.statusDescription){}}
+                                    <span class="part-c">{{d.cusHealth.statusDescription}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-t">
+                            <i class="block"></i>
+                            <span>疾病诊断</span>
+                        </div>
+                        <div class="item-c">
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">疾病诊断：</span>
+                                      {{# if(d.cusHealth.diseaseDiagnose){}}
+                                    <span class="part-c">{{d.cusHealth.diseaseDiagnose}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">肿瘤病理类型：</span>
+                                     {{# if(d.cusHealth.tumourType){}}
+                                    <span class="part-c">{{d.cusHealth.tumourType}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-col-md6 part">
+                                    <span class="part-t">肿瘤分期：</span>
+                                     {{# if(d.cusHealth.tumourTerm){}}
+                                    <span class="part-c">{{d.cusHealth.tumourTerm}}</span>
+                                    {{# }else{}}
+                                    <span class="part-c" style="color:grey">未填写</span>
+                                    {{#}}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

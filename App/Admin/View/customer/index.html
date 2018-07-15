@@ -1,0 +1,65 @@
+<div class="kit-table">
+    <form class="layui-form" id="cusSearch" lay-filter="kit-search-form-customer">
+        <div class="kit-table-header">
+            <div class="kit-search-inputs">
+                <div class="kit-search-keyword">
+                    <input type="text" class="layui-input" name="keyword" placeholder="搜索姓名、人员编号.." />
+                    <button lay-submit lay-filter="customerSearchIcon"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+                <div class="kit-search-more" id="kit-search-more-customer">更多筛选<i class="layui-icon">&#xe61a;</i></div>
+            </div>
+            <div class="kit-search-btns">
+                <a href="javascript:;" class="layui-btn layui-btn-sm refresh">刷新</a>
+                <a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" id="customerExport">导出</a>
+            	<a href="javascript:;" class="layui-btn layui-btn-sm layui-btn-normal" id="customerTableBtn" style="display:none">表格自定义</a>
+            </div>
+        </div>
+        <div class="kit-search-mored layui-anim layui-anim-upbit" id="customerSearchDiv">
+            <div class="kit-search-body">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">患者编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="code" placeholder="" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">患者姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">人员编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="scCard" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="kit-search-footer">
+                <button type="reset" class="layui-btn layui-btn-small layui-btn-primary kit-btn">重置</button>
+                <button lay-submit lay-filter="customerSearch" class="layui-btn layui-btn-small kit-btn">确定</button>
+            </div>
+        </div>
+    </form>
+    <div class="kit-table-body">
+        <table id="customerList" lay-filter="customerList"></table>
+    </div>
+</div>
+<script type="text/html" id="customerBar">
+	<span class="layui-breadcrumb" lay-separator="|">
+    	<a lay-event="edit">编辑</a>
+	</span>
+</script>
+<script type="text/html" id="familyBar">
+	<span class="layui-breadcrumb" lay-separator="|">
+    	<a lay-event="edit">编辑</a>
+    	<a lay-event="del">删除</a>
+	</span>
+</script>
+
+
+<!--<#include "customer/form.html" />-->

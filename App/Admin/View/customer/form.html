@@ -1,0 +1,229 @@
+<script type="text/html" id="customerAddTpl">
+    <style type="text/css">
+    #customerAddDiv .files {
+        position: absolute;
+        top: 50px;
+        right: 0px;
+        font-size: 10px !important;
+        color: #C9CACA;
+    }
+    #customerAddDiv .files img:nth-child(2) {
+        vertical-align: bottom;
+        margin-bottom: 5px;
+        cursor: pointer;
+		margin-left:5px;
+    }
+	#customerAddDiv .img-wrap{
+		width: 95px;
+		height: 130px;
+	}
+	
+	.layui-elem-field legend {
+    	font-size: 16px !important;
+	}
+	#add-family-btn{
+		float: right;
+		color: #5AAF70;
+    	font-size: 16px;
+    	cursor: pointer;
+	}
+	#add-family-btn:hover{
+		color: #094;
+	}
+	#customerAddDiv .files a{
+		display: inline-block;
+		width: 50px;
+		height: 25px;
+		background: #F7F8F8;
+		border: 1px solid #DCDDDD;
+	 	vertical-align: bottom;
+    	line-height: 25px;
+    	text-align: center;
+    	color: #595757;
+		margin-left: 10px;
+		border-radius: 4px;
+	}
+    </style>
+    <div style="margin: 10px;" id="customerAddDiv">
+        <form lay-filter="customerForm" class="layui-form" id="customer-form">
+            <input type="hidden" name="id" value="{{d.customer.id}}">
+            <input type="hidden" name="age" id="age" value="{{d.customer.age}}">
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>基本信息</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">姓名<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" autocomplete="off" lay-verify="required|length" length="10" placeholder="请输入姓名" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.customer.name)}}">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">人员编号<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="scCard" autocomplete="off" lay-verify="required|number|length" length="25" placeholder="请输入人员编号" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.customer.scCard)}}">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">身份证号<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="card" id="card" autocomplete="off" readonly="readonly" lay-verify="required|identity" placeholder="请输入身份证号" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.customer.card)}}">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">出生年月<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="birthday" id="birthday" lay-verify="required" class="layui-input date" value="{{d.customer.birthday===''?'':layui.laytpl.toDateString(new Date(d.customer.birthday),'yyyy-MM-dd')}}">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">性别<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="radio" title="男" id="male" name="sex" value="0" {{# if(d.customer.sex==0 ){}}checked{{#}}}>
+                        <input type="radio" title="女" id="female" name="sex" value="1" {{# if(d.customer.sex==1 ){}}checked{{#}}}>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">参保属地<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <select name="scArea" lay-filter="scArea" lay-verify="required">
+                            <option value="">请选择</option>
+                            {{# layui.each(d.scAreaList,function(index,item){ }} {{# if(item.id===d.customer.scArea){}}
+                            <option value="{{item.id}}" selected>{{item.name}}</option>
+                            {{#}else{}}
+                            <option value="{{item.id}}">{{item.name}}</option>
+                            {{#};}} {{# }); }}
+                        </select>
+                    </div>
+                </div>
+				<div class="layui-inline">
+					{{# if(d.customer.id && d.customer.id != 0){}}
+					<label class="layui-form-label">加入黑名单</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" lay-text="ON|OFF" name="isBlack" value="" lay-skin="switch" {{# if(d.customer.isBlack == 1){}}checked{{#}}}>
+					</div>
+					{{#}}}
+				</div>
+            </div>
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>联系方式</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">手机号码<span class="required-span">*</span></label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="telephone" autocomplete="off" lay-verify="required|phone" placeholder="请输入手机号码" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.customer.telephone)}}">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">固定电话</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="fixphone" lay-verify="num|length" length="30" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.customer.fixphone)}}">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">工作单位</label>
+                <div class="layui-input-block" style="margin-right:25px;">
+                    <input type="text" name="workAddress" class="layui-input" lay-verify="length" length="200" value="{{layui.laytpl.defaultIfBlank(d.customer.workAddress)}}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">家庭住址</label>
+                <div class="layui-input-block" style="margin-right:25px;">
+                    <input type="text" name="address" lay-verify="length" length="200"  class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.customer.address)}}">
+                </div>
+            </div>
+            <div class="files">
+				{{#if(d.customer.imgAddress){}}
+                <img src="{{d.attachsPrefix+d.customer.imgAddress}}" class="img-wrap">
+				{{#}else{}}
+				<img src="images/photo.png" class="img-wrap">
+				{{#}}}
+                <a class="photo-btn">拍照</a><a class="upload-btn">上传</a>
+				<input type="hidden" name="imgAddress" value="{{layui.laytpl.defaultIfBlank(d.customer.imgAddress)}}">
+                <p>仅支持JPG、PNG格式，建议尺寸295*413px。</p>
+            </div>
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">领药人</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        <div class="ope-btns" style="overflow:hidden;">
+							<i class="fa fa-plus" id="add-family-btn"></i>
+                        </div>
+                        <table id="familyList" lay-filter="familyList">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item" style="display:none;">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="customerSubmit">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>
+<script type="text/html" id="familyFormTpl">
+	<style>
+        #familyForm img{
+            padding: 3px;
+            border: 1px solid #D3EAE4;
+            width: 87px;
+            height: 122px;
+        }
+		#familyForm img + a{
+			vertical-align: bottom;
+		}
+    </style>
+    <div style="margin: 10px;">
+        <form lay-filter="familyForm" class="layui-form" id="familyForm">
+			<div class="layui-form-item">
+                <label class="layui-form-label" style="width: 70px;"></label>
+                <div class="layui-input-inline" style="width: 216px;">
+					{{#if(d.imgAddress){}}
+                    <img src="{{d.attachsPrefix+d.imgAddress}}">
+					{{#}else{}}
+					<img src="images/lyr-image.png">
+					{{#}}}
+                    <a class="layui-btn layui-btn-sm layui-btn-primary photo-btn" href="javascript:;" style="margin-left: 10px;">拍照</a>
+                    <a class="layui-btn layui-btn-sm layui-btn-primary upload-btn" href="javascript:;" style="vertical-align: bottom;">上传</a>
+					<input type="hidden" name="imgAddress" value="{{d.imgAddress || ''}}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">姓名<span class="required-span">*</span></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.name)}}" lay-verify="required|length" length="10">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">身份证号<span class="required-span">*</span></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="card" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.card)}}" lay-verify="required|identity">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">联系电话<span class="required-span">*</span></label>
+                <div class="layui-input-inline">
+                    <input type="text" name="telephone" class="layui-input" value="{{layui.laytpl.defaultIfBlank(d.telephone)}}" lay-verify="required|phone">
+                </div>
+            </div>
+            <div class="layui-form-item" style="display:none;">
+                <div class="layui-input-inline">
+                    <button class="layui-btn" lay-submit lay-filter="familySubmit">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</script>

@@ -1,0 +1,140 @@
+*{
+	box-sizing: border-box;
+}
+#pickList {
+	overflow: hidden;
+}
+#pickList h3 {
+	margin-bottom: 10px;
+}
+.pickListButtons {
+  width: 20%;
+  padding-top: 100px;
+  text-align: center;
+  float: left;
+}
+
+.pickListButtons button {
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 14px;
+    background-color: #fff;
+    color: #C4C4C4;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #C4C4C4;
+    border-radius: 2px;
+    cursor: pointer;
+    
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.pickListButtons button:hover {
+	color:#fff;
+	border:1px solid #49A761;
+	background-color: #49A761;
+}
+
+#optsAll {
+	width: 40%;
+	padding-left: 15%;
+	margin-top: 10px;
+}
+
+#optsAll span {
+	color: #9FA0A0;
+	cursor: pointer;
+}
+
+#optsAll span i {
+	font-size: 20px;
+}
+
+#optsAll span:hover {
+	color: #49A761;
+}
+
+.pickListSelect {
+  height: 270px !important;
+}
+
+.layui-layer-content {
+	padding: 20px;
+}
+
+
+/* 自定义  */
+
+.sourse {
+	width: 40%;
+	float: left;
+}
+.target {
+	width: 40%;
+	float: right;
+}
+
+select {
+	margin: 0;
+	outline: none;
+	text-transform: none;
+}
+select[multiple]{
+    height: auto;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 15px 0;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-control>option {
+	padding: 3px 10px;
+}
+
+.form-control>option:hover {
+	color: #fff;
+	cursor:pointer;
+	background: #4DA763;
+}
+
+
+/* option[selected='selected']{
+	background: #5DBF74;
+} */
+.layui-layer-page .layui-layer-btn {
+	padding-top: 0px;
+}
+
+.layui-layer-btn a {
+	height: 38px;
+	line-height: 38px;
+}
+
+
+
+
+
+
+
+
+
+

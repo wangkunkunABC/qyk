@@ -1,0 +1,53 @@
+.pop-body{
+	background-color: #1e9fff08;
+	padding: 15px;
+}
+.detail-info-box{
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+.detail-info-box .box-head{
+	overflow-x: hidden;
+	height: 30px;
+	line-height: 30px;
+}
+.detail-info-box h2{
+	font-size: 16px;
+	float: left;
+	color: #4fbdbd;
+}
+.detail-info-box .status{
+	float: right;
+	font-size: 12px;
+}
+.status .status-t{
+	background-color: #01aaed;
+	padding: 3px;
+	border-radius: 3px;
+	color: #FFF;
+}
+.status .status-c{
+	color: #01aaed;
+}
+.box-con{
+	font-size: 0;
+}
+.box-con .item{
+	color: #666;
+	font-size: 12px;
+    border-right: 1px solid #999;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+.box-con .row{
+	margin-bottom: 10px;
+}
+.box-con .row .item:last-child{
+	border-right: none;
+}
+.box-con .row:nth-child(n + 2) .item{
+	border-right: none;
+}
+.layui-tab-title .layui-this{
+	background-color: #fff;
+}

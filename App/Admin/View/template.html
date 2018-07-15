@@ -1,0 +1,135 @@
+<!-- 订单状态 -->
+<script type="text/html" id="orderStatusTpl">
+	{{#  
+		if(d.status == 0){return "草稿"}; 
+		if(d.status == 1){return "待发货"}; 
+		if(d.status == 2){return "待收费"}; 
+		if(d.status == 3){return "已完成"}; 
+		if(d.status == 4){return "已作废"}; 
+	}}
+</script>
+
+<!-- 医保类型 -->
+<script type="text/html" id="scTypeTpl">
+	{{#  
+		if(d.scType == 0){return "职工医保"}; 
+		if(d.scType == 1){return "居民医保"}; 
+	}}
+</script>
+
+<!-- 审核状态 -->
+<script type="text/html" id="applyStatusTpl">
+	{{#  
+		if(d.status == 0){return "草稿"};
+		if(d.status == 1){return "待医生审核"}; 
+		if(d.status == 2){return "待医保审核"}; 
+		if(d.status == 3){return "医生审核拒绝"}; 
+		if(d.status == 4){return "医保审核通过"}; 
+		if(d.status == 5){return "医保审核拒绝"}; 
+		if(d.status == 6){return "已作废"}; 
+		if(d.status == 7){return "已归档"}; 
+	}}
+</script>
+
+<!-- 计算订单列表的自付金额 -->
+<script type="text/html" id="calSelfAmountTpl">
+	{{#  if(d.expenseAmount) return d.totalAmount - d.expenseAmount;}}
+</script>
+
+<!-- 性别-->
+<script type="text/html" id="sexStatusTpl">
+	{{#  if(d.sex == 0) return "男";
+         if(d.sex == 1) return "女";
+}}
+</script>
+
+<!-- 自提单状态 -->
+<script type="text/html" id="postStatusTpl">
+	{{#  
+		if(d.status == 0){return "待发货"}; 
+		if(d.status == 1){return "已发货"}; 
+		if(d.status == 2){return "已作废"}; 
+	}}
+</script>
+
+<!-- 是否启用状态 -->
+<script type="text/html" id="isUseTpl">
+	{{#  
+		if(d.isUse == 0){return "启用"}; 
+		if(d.isUse == 1){return "停用"}; 
+	}}
+</script>
+
+<!-- 用法类型 -->
+<script type="text/html" id="typeTextTpl">
+	{{#  
+		if(d.type == 0){return "按数量"}; 
+		if(d.type == 1){return "按疗程"}; 
+	}}
+</script>
+
+<!-- 特保资格状态 -->
+<script type="text/html" id="treatmentTpl">
+	{{#  
+		if(d.status == 0 && d.isExpire===0){return "资格有效"};
+        if(d.status == 0 && d.isExpire===1){return "资格过期"};
+		if(d.status == 1){return "资格结束"}; 
+		if(d.status == 2){return "资格取消"}; 
+        if(d.status == 4){return "资格无效"}; 
+		if(d.status == 3 && d.isExpire===0){return "资格暂停"};
+        if(d.status == 3 && d.isExpire===1){return "资格过期"};
+        
+	}}
+</script>
+
+<!-- 是否启用状态 -->
+<script type="text/html" id="isFirstTpl">
+	{{#  
+		if(d.isFirst == 0){return "否"}; 
+		if(d.isFirst == 1){return "是"}; 
+	}}
+</script>
+
+<!-- 医生是否开通账号 -->
+<script type="text/html" id="isAccountTpl">
+	{{#  
+		if(d.userId){return "是"}else{return "否"}; 
+	}}
+</script>
+
+<script type="text/html" id="rejectTpl">
+	<div style="margin: 10px;">
+		<form lay-filter="rejectForm" class="layui-form" id="rejectForm">
+			<div class="layui-form-item">
+				<label class="layui-form-label">拒绝原因</label>
+                <div class="layui-input-block">
+					<select name="insuranceRefuseReason" lay-verify="required">
+						<option value="">请选择</option>
+						{{#  layui.each(d.rejectReasonList, function(index, item){ }}
+						<option value="{{item.id}}">{{item.name}}</option>
+						{{#  }); }}
+                	</select>
+                </div>
+            </div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">备注</label>
+                <div class="layui-input-block">
+					<textarea type="text" name="insuranceRemark" class="layui-textarea"></textarea>
+				</div>
+            </div>
+			<div class="layui-form-item" style="display:none;">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="rejectSubmit">立即提交</button>
+                </div>
+            </div>
+		</form>
+	</div>
+</script>
+
+<!-- 异常情况 -->
+<script type="text/html" id="errorTpl">
+	{{#  
+		if(d.error == 0){return "无异常"}; 
+		if(d.error == 1){return "有异常"}; 
+	}}
+</script>
