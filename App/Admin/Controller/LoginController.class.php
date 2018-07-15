@@ -3,6 +3,6 @@ namespace Admin\Controller;
 use Think\Controller;
 class LoginController extends Controller {
     public function Index(){
-        $this->display();
+        $this->display('login');
     }
 }
