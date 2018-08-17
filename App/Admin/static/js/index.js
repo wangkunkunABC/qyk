@@ -189,7 +189,7 @@ layui.define(['element', 'nprogress', 'form', 'table', 'loader', 'tab', 'navbar'
             		},
             		btn2: function(index,layero){
             			$.get('logout', null, function(res) {
-                        	location.href="login"; 
+                        	location.href="../login";
                         });
             		}
             	});

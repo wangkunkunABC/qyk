@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>券一筐管理系统</title>
-    <base href="__STATIC__/">
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="plugins/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="css/login.css" media="all" />
+    <base href="__CONTROLLER__/">
+    <link rel="shortcut icon" href="__STATIC__/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/login.css" media="all" />
 </head>
 
 <body>
@@ -38,14 +38,14 @@
 				<div class="layui-form-item">
 				    <label class="layui-form-label user-label"><img src="__STATIC__/images/username.png"/></label>
 				    <div class="layui-input-block user-input">
-				      <input type="text" id="loginName" name="loginName" autocomplete="off" placeholder="请输入用户名" class="layui-input" lay-verify="required">
+				      <input type="text" id="loginName" name="loginName" autocomplete="off" placeholder="请输入用户名" class="layui-input" lay-verify="required" value="admin">
 				    </div>
 				</div>
 				<div class="layui-form-item">
 				    <label class="layui-form-label pwd-label"><img src="__STATIC__/images/password.png"/></label>
 				    <div class="layui-input-block pwd-input">
-				      <input type="password" id="password" name="password" autocomplete="off" placeholder="请输入密码" class="layui-input" lay-verify="required">
-				      <input style="display:none" type="password" name="password"/>
+				      <input type="password" id="password" name="password" autocomplete="off" placeholder="请输入密码" class="layui-input" lay-verify="required" value="admin">
+				      <input style="display:none" type="password" name="password">
 				    </div>
 				</div>
 				<div class="layui-form-item switch-item switch-form">
@@ -79,8 +79,10 @@
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="plugins/layui/layui.js"></script>
-    
-    <script src="js/login.js"></script>
+    <script src="__STATIC__/plugins/layui/layui.js"></script>
+    <script>
+    	var STATICPATH = "__STATIC__";
+    </script>
+    <script src="__STATIC__/js/login.js"></script>
 </body>
 </html>

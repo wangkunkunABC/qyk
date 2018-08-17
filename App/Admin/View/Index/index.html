@@ -8,24 +8,24 @@
     <meta http-equiv="expires" content="Thu, 01 Jan 1970 00:00:01 GMT" />
     <meta http-equiv="expires" content="0" />
     <title>券一筐管理系统</title>
-    <base href="__STATIC__/">
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="plugins/layui/css/layui.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="plugins/font-awesome/css/font-awesome.min.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="css/app.css?t=${version!}" media="all" />
-    <link rel="stylesheet" type="text/css" href="css/customer-detail.css?t=${version!}" media="all" />
-    <link rel="stylesheet" type="text/css" href="css/index.css?t=${version!}" media="all" />
-    <link rel="stylesheet" type="text/css" href="css/iconfont.css?t=${version!}" media="all" />
+    <base href="__CONTROLLER__/">
+    <link rel="shortcut icon" href="__STATIC__/images/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/plugins/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/plugins/font-awesome/css/font-awesome.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/app.css?t=${version!}" media="all" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/customer-detail.css?t=${version!}" media="all" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?t=${version!}" media="all" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/iconfont.css?t=${version!}" media="all" />
 </head>
 
 <body class="kit-theme">
     <div class="layui-layout layui-layout-admin kit-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo"><img alt="logo" src="images/logo.png" style="height:37px;"></div>
+            <div class="layui-logo"><img alt="logo" src="__STATIC__/images/logo.png" style="height:37px;"></div>
             <ul class="layui-nav layui-layout-right kit-nav">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <img src="images/touxiang.png" class="layui-nav-img">
+                        <img src="__STATIC__/images/touxiang.png" class="layui-nav-img">
                         超级管理员
                     </a>
                     <dl class="layui-nav-child">
@@ -77,14 +77,14 @@
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <script src="plugins/layui/layui.js"></script>
+    <script src="__STATIC__/plugins/layui/layui.js"></script>
     <script>
     var mainUrl = "__URL__/",
         Home = {},
     	Customer = {};
     
     layui.config({
-        base: './js/'
+        base: '__STATIC__/js/'
     }).use(['index'], function() {
         var index = layui.index;
         index.set({
@@ -92,8 +92,8 @@
         }).init();
     });
     </script>
-    <script src="js/init/home.js?t=${version!}"></script>
-    <script src="js/init/customer.js?t=${version!}"></script>
+    <script src="__STATIC__/js/init/home.js?t=${version!}"></script>
+    <script src="__STATIC__/js/init/customer.js?t=${version!}"></script>
 </body>
 
 </html>

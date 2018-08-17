@@ -1,5 +1,5 @@
 layui.config({
-    base: './js/'
+    base: STATICPATH + '/js/'
 }).use(['jquery', 'cookie', 'form'], function() {
     var $ = layui.jquery,
         form = layui.form;
@@ -25,20 +25,20 @@ layui.config({
 
     //文本框被选中的时候颜色变化开始
     $(".user-input .layui-input").focus(function() {
-        $(this).parents('.layui-form-item').find('img').attr('src', '../static/images/username-hover.png');
+        $(this).parents('.layui-form-item').find('img').attr('src', STATICPATH + '/images/username-hover.png');
         $(this).parents('.layui-form-item').find('.user-label').css("border-color", "#49A761");
     });
     $(".user-input .layui-input").blur(function() {
-        $(this).parents('.layui-form-item').find('img').attr('src', '../static/images/username.png');
+        $(this).parents('.layui-form-item').find('img').attr('src', STATICPATH + '/images/username.png');
         $(this).parents('.layui-form-item').find('.user-label').css("border-color", "#D2D2D2");
     });
 
     $(".pwd-input .layui-input").focus(function() {
-        $(this).parents('.layui-form-item').find('img').attr('src', '../static/images/password-hover.png');
+        $(this).parents('.layui-form-item').find('img').attr('src', STATICPATH + '/images/password-hover.png');
         $(this).parents('.layui-form-item').find('.pwd-label').css("border-color", "#49A761");
     });
     $(".pwd-input .layui-input").blur(function() {
-        $(this).parents('.layui-form-item').find('img').attr('src', '../static/images/password.png');
+        $(this).parents('.layui-form-item').find('img').attr('src', STATICPATH + '/images/password.png');
         $(this).parents('.layui-form-item').find('.pwd-label').css("border-color", "#D2D2D2");
     });
     //文本框被选中的时候颜色变化结束
@@ -69,17 +69,13 @@ layui.config({
 	        url:"login",
 	        data:{"loginName":loginName,"password":password,"rememberMe":rmbUser},
 	        dataType:'json',
-	        error: function(request) {
-	            alert(request);
-	        },
-	        success: function(data) {
-	        	if(data.status == 500){
-	        		var html = data.message;
-	        		$("#errTips").empty();
-	        		$("#errTips").append(html);
-	        	}else{
-	        		location.href="index";
-	        	}
+	        error: function(request) {console.log(request);},
+	        success: function(res) {
+                if (res.isSucc) {
+                    location.href="../index";
+                } else {
+                    $("#errTips").empty().append(res.msg);
+                }
 	        }
 	    });
         return false;
